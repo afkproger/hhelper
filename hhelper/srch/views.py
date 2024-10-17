@@ -2,11 +2,11 @@ from django.contrib.auth import authenticate
 from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .models import StaffMembers, Indicators
-from .serializers import StaffSerializer, IndicatorsSerializer, StaffLogSerializer
+from .models import StaffMembers, Indicators, Tasks
+from .serializers import StaffSerializer, IndicatorsSerializer, StaffLogSerializer, TaskSerializer
 from rest_framework.views import APIView
 
 
@@ -15,6 +15,28 @@ from rest_framework.views import APIView
 
 def index(request):
     return HttpResponse("Начало положено")
+
+
+class TasksView(APIView):
+    def post(self, request):
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()  # Сохраняем новую задачу
+            return Response(serializer.data, status=status.HTTP_201_CREATED)  # Возвращаем созданный объект
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # Возвращаем ошибки валидации
+
+    def get(self, request, staff_id):
+        try:
+            # Получаем все задачи, связанные с данным сотрудником
+            tasks = Tasks.objects.filter(assigned_to=staff_id)
+
+            if not tasks.exists():
+                return Response({'error': 'Tasks not found'}, status=404)
+
+            serialized_tasks = TaskSerializer(tasks, many=True).data
+            return Response(serialized_tasks)
+        except StaffMembers.DoesNotExist:
+            return Response({'error': 'Staff member not found'}, status=404)
 
 
 class StaffLogView(APIView):
@@ -42,40 +64,12 @@ class StaffRegistrationView(APIView):
         except Exception as e:
             return Response({'success': False, 'error': str(e)}, status=400)
 
-    def get(self, request, *args, **kwargs):
-        staff_login = kwargs.get('login', None)
-        if not staff_login:
-            return Response({"error": "Method GET not allowed"})
-
-        try:
-            staff = StaffMembers.objects.get(login=staff_login)
-        except StaffMembers.DoesNotExist:
-            return Response({'error': 'Staff member not found'}, status=404)
-
-        staff_serialized = StaffSerializer(staff).data
-        return Response({'staff': staff_serialized})
-
-    def put(self, request, *args, **kwargs):
-        pk = kwargs.get("pk", None)
-        if not pk:
-            return Response({"error": "Method PUT not allowed"})
-
-        try:
-            instance = StaffMembers.objects.get(pk=pk)
-        except:
-            return Response({"error": "Object does not exist"})
-
-        serializer = StaffSerializer(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({"put": serializer.data})
-
 
 class IndicatorView(APIView):
     def get(self, request):
         indicators = Indicators.objects.all()
         serialized_indicators = IndicatorsSerializer(indicators, many=True).data
-        return Response({'indicators': serialized_indicators})
+        return Response(serialized_indicators)
 
     def post(self, request):
         serializer = IndicatorsSerializer(data=request.data)

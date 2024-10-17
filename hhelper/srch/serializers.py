@@ -3,7 +3,13 @@ import io
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from .models import StaffMembers, Indicators
+from .models import StaffMembers, Indicators, Tasks
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tasks
+        fields = ['id', 'job_title', 'description', 'assigned_to']
 
 
 class StaffSerializer(serializers.Serializer):

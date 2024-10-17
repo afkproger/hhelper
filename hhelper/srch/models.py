@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 class Indicators(models.Model):
@@ -17,3 +18,15 @@ class StaffMembers(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class Tasks(models.Model):
+    job_title = models.CharField(max_length=255)  # Название работы (например, программист, менеджер и т.д.)
+    description = models.TextField()  # Описание задачи
+    assigned_to = models.ForeignKey(StaffMembers, on_delete=models.CASCADE,
+                                    related_name='tasks')  # Внешний ключ к сотруднику
+    created_at = models.DateTimeField(auto_now_add=True)  # Дата создания задачи
+    updated_at = models.DateTimeField(auto_now=True)  # Дата последнего обновления задачи
+
+    def __str__(self):
+        return self.job_title

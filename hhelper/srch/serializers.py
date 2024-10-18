@@ -3,7 +3,7 @@ import io
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from .models import StaffMembers, Indicators, Tasks
+from .models import StaffMembers, Indicators, Tasks, Question
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -37,11 +37,13 @@ class StaffLogSerializer(serializers.ModelSerializer):
         fields = ['pk', 'full_name']  # Указываем только нужные поля
 
 
-class IndicatorsSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=255)
+class IndicatorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Indicators
+        fields = ['id', 'name']
 
-    def create(self, validated_data):
-        return Indicators.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get("name")
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ['questions']

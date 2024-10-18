@@ -39,6 +39,26 @@ class TasksView(APIView):
             return Response({'error': 'Staff member not found'}, status=404)
 
 
+class QuestionsView(APIView):
+    def post(self, request, task_id):
+        job_title = request.data.get('job_title')
+        indicator_ids = request.data.get('indicators', [])
+
+        # Получаем показатели по переданным id
+        indicators = Indicators.objects.filter(id__in=indicator_ids)
+
+        # Извлекаем названия показателей
+        indicator_names = [indicator.name for indicator in indicators]
+
+        # Формируем ответ в нужном формате
+        response_data = {
+            "indicators": indicator_names,
+            "job_title": job_title
+        }
+
+        return Response(response_data)
+
+
 class StaffLogView(APIView):
     def post(self, request):
         staff_login = request.data.get('login', None)
@@ -72,9 +92,8 @@ class IndicatorView(APIView):
         return Response(serialized_indicators)
 
     def post(self, request):
-        serializer = IndicatorsSerializer(data=request.data)
+        serializer = IndicatorsSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
-
         serializer.save()
 
         return Response({'post': serializer.data})

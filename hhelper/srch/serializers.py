@@ -34,7 +34,7 @@ class StaffSerializer(serializers.Serializer):
 class StaffLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = StaffMembers
-        fields = ['pk', 'full_name']  # Указываем только нужные поля
+        fields = ['pk', 'full_name', 'login', 'email']  # Указываем только нужные поля
 
 
 class IndicatorsSerializer(serializers.ModelSerializer):

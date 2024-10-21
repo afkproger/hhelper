@@ -27,6 +27,7 @@ class Tasks(models.Model):
                                     related_name='tasks')  # Внешний ключ к сотруднику
     created_at = models.DateTimeField(auto_now_add=True)  # Дата создания задачи
     updated_at = models.DateTimeField(auto_now=True)  # Дата последнего обновления задачи
+    indicators = models.ManyToManyField(Indicators, blank=True)
 
     def __str__(self):
         return self.job_title

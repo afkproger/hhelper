@@ -4,23 +4,18 @@ from yandex_gpt import YandexGPTThread
 
 class MakeQuestions:
 
-    def __init__(self, config_manager):
+    def __init__(self, config_manager, data):
         self.job_title = None
         self.config_manager = config_manager
+        self.data = data
 
-    def prepare_data(self, file):
+    def prepare_data(self):
 
         self.indicators = []
 
-        with open(file, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        for indicator in self.data['indicators']: self.indicators.append(indicator)
 
-            for indicator in data['indicators']:
-                self.indicators.append(indicator)
-
-            self.job_title = data['job_title']
-
-        return self.indicators, self.job_title
+        self.job_title = self.data['job_title']
 
     def prepare_gpt_messages(self):
 

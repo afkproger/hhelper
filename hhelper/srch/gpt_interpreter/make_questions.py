@@ -2,6 +2,7 @@ import json
 
 from yandex_gpt import YandexGPTThread
 
+
 class MakeQuestions:
 
     def __init__(self, config_manager):
@@ -9,7 +10,6 @@ class MakeQuestions:
         self.config_manager = config_manager
 
     def prepare_data(self, file):
-
         self.indicators = []
 
         with open(file, 'r', encoding='utf-8') as file:
@@ -23,7 +23,6 @@ class MakeQuestions:
         return self.indicators, self.job_title
 
     def prepare_gpt_messages(self):
-
         user_input = (
             f"У нас есть ряд показателей, которые важны для должности {self.job_title}: {', '.join(self.indicators)}.\n"
             "Сформируй список вопросов, которые можно задать специалисту на собеседовании для оценки каждого показателя.\n"

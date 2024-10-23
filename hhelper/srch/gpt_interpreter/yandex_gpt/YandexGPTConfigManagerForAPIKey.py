@@ -1,7 +1,7 @@
 import os
 from typing import Optional
 
-from yandex_gpt.YandexGPTConfigManagerBase import YandexGPTConfigManagerBase
+from srch.gpt_interpreter.yandex_gpt.YandexGPTConfigManagerBase import YandexGPTConfigManagerBase
 
 
 class YandexGPTConfigManagerForAPIKey(YandexGPTConfigManagerBase):
@@ -11,6 +11,7 @@ class YandexGPTConfigManagerForAPIKey(YandexGPTConfigManagerBase):
     use environmental variables for model type (`YANDEX_GPT_MODEL_TYPE`), catalog ID (`YANDEX_GPT_CATALOG_ID`), and API
     key (`YANDEX_GPT_API_KEY`), which can override the constructor values if set.
     """
+
     def __init__(
             self,
             model_type: Optional[str] = None,

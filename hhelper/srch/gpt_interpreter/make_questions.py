@@ -1,6 +1,6 @@
 import json
 
-from yandex_gpt import YandexGPTThread
+from srch.gpt_interpreter.yandex_gpt import YandexGPTThread
 
 
 class MakeQuestions:

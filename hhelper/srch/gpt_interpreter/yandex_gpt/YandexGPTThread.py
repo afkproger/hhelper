@@ -1,7 +1,7 @@
 from typing import TypedDict, Optional, Union, Dict, Any, List
 
-from YandexGPT import YandexGPT, YandexGPTMessage
-from YandexGPTConfigManagerBase import YandexGPTConfigManagerBase
+from srch.gpt_interpreter.yandex_gpt.YandexGPT import YandexGPT, YandexGPTMessage
+from srch.gpt_interpreter.yandex_gpt.YandexGPTConfigManagerBase import YandexGPTConfigManagerBase
 
 
 class YandexGPTThreadStatus(TypedDict):

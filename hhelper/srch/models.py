@@ -21,21 +21,12 @@ class StaffMembers(models.Model):
 
 
 class Tasks(models.Model):
-    job_title = models.CharField(max_length=255)  # Название работы (например, программист, менеджер и т.д.)
     description = models.TextField(blank=True)  # Описание задачи
-    assigned_to = models.ForeignKey(StaffMembers, on_delete=models.CASCADE,
+    status = models.BooleanField(default=False)
+    staffmember = models.ForeignKey(StaffMembers, on_delete=models.CASCADE,
                                     related_name='tasks')  # Внешний ключ к сотруднику
     created_at = models.DateTimeField(auto_now_add=True)  # Дата создания задачи
     updated_at = models.DateTimeField(auto_now=True)  # Дата последнего обновления задачи
-    indicators = models.ManyToManyField(Indicators, blank=True)
 
     def __str__(self):
-        return self.job_title
-
-
-class Question(models.Model):
-    assigned_to = models.ForeignKey(Tasks, on_delete=models.CASCADE, related_name='questions')  # Внешний ключ к задаче
-    questions = models.TextField()  # Текст вопроса
-
-    def __str__(self):
-        return self.questions
+        return self.description

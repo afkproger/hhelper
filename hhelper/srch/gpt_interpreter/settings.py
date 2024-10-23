@@ -1,4 +1,4 @@
-from yandex_gpt import YandexGPTConfigManagerForAPIKey
+from srch.gpt_interpreter.yandex_gpt import YandexGPTConfigManagerForAPIKey
 
 
 class Settings:

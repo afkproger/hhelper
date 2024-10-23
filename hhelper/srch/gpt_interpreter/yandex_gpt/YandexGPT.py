@@ -1,7 +1,8 @@
 from typing import Dict, Any, Union, List, TypedDict
 
-from YandexGPTBase import YandexGPTBase
-from YandexGPTConfigManagerBase import YandexGPTConfigManagerBase
+from srch.gpt_interpreter.yandex_gpt.YandexGPTBase import YandexGPTBase
+from srch.gpt_interpreter.yandex_gpt.YandexGPTConfigManagerBase import YandexGPTConfigManagerBase
+
 
 class YandexGPTMessage(TypedDict):
     role: str
@@ -13,6 +14,7 @@ class YandexGPT(YandexGPTBase):
     Extends the YandexGPTBase class to interact with the Yandex GPT API using a simplified configuration manager.
     This class allows for easier configuration of API requests and includes both synchronous and asynchronous methods.
     """
+
     def __init__(
             self,
             config_manager: Union[YandexGPTConfigManagerBase, Dict[str, Any]]

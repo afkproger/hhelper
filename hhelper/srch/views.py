@@ -11,8 +11,8 @@ import json
 from django.http import JsonResponse
 
 from hhelper import settings
-from .gpt_interpreter.make_questions import MakeQuestions
-from .gpt_interpreter.settings import Settings
+from srch.gpt_interpreter.make_questions import MakeQuestions
+from srch.gpt_interpreter.settings import Settings
 from .models import StaffMembers, Indicators, Tasks
 from .serializers import StaffSerializer, IndicatorsSerializer, StaffLogSerializer, TaskSerializer, StaffTaskSerializer
 from rest_framework.views import APIView
@@ -67,12 +67,7 @@ class QuestionsView(APIView):
             "job_title": job_title
         }
 
-        # return Response(response_data)
-
-        # config_manager = Settings()
-        # questions = MakeQuestions(config_manager=config_manager.get_config(), data=response_data)
-        # gpt_response = asyncio.run(questions.get_response())
-        # return Response({'questions': gpt_response})
+        return Response(response_data)
 
 
 class StaffRegistrationView(APIView):

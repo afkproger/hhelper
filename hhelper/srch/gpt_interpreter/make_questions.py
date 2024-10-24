@@ -1,26 +1,21 @@
-import json
-
+import asyncio
 from srch.gpt_interpreter.yandex_gpt import YandexGPTThread
 
 
 class MakeQuestions:
 
-    def __init__(self, config_manager):
+    def __init__(self, config_manager, data):
         self.job_title = None
         self.config_manager = config_manager
+        self.data = data
 
-    def prepare_data(self, file):
+    def prepare_data(self):
         self.indicators = []
 
-        with open(file, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        for indicator in self.data['indicators']:
+            self.indicators.append(indicator)
 
-            for indicator in data['indicators']:
-                self.indicators.append(indicator)
-
-            self.job_title = data['job_title']
-
-        return self.indicators, self.job_title
+        self.job_title = self.data['job_title']
 
     def prepare_gpt_messages(self):
         user_input = (
@@ -44,10 +39,13 @@ class MakeQuestions:
     async def get_response(self):
         messages = self.prepare_gpt_messages()
 
+        # Инициализация YandexGPTThread с нужными конфигурациями
         yandex_gpt_thread = YandexGPTThread(config_manager=self.config_manager, messages=messages)
 
-        await yandex_gpt_thread.run_async()
-
-        response_data = yandex_gpt_thread[-1]['text']
+        try:
+            await yandex_gpt_thread.run_async()  # Асинхронный запуск GPT
+            response_data = yandex_gpt_thread.result()[-1]['text']  # Получение ответа
+        except Exception as e:
+            response_data = f"Ошибка выполнения GPT: {str(e)}"
 
         return response_data

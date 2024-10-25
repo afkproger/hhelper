@@ -22,11 +22,28 @@ class StaffMembers(models.Model):
 
 class Tasks(models.Model):
     description = models.TextField(blank=True)  # Описание задачи
-    status = models.BooleanField(default=False)
-    staffmember = models.ForeignKey(StaffMembers, on_delete=models.CASCADE,
-                                    related_name='tasks')  # Внешний ключ к сотруднику
+    staff_member = models.ForeignKey(StaffMembers, on_delete=models.CASCADE,
+                                     related_name='tasks')  # Внешний ключ к сотруднику
     created_at = models.DateTimeField(auto_now_add=True)  # Дата создания задачи
-    updated_at = models.DateTimeField(auto_now=True)  # Дата последнего обновления задачи
 
     def __str__(self):
         return self.description
+
+
+class Profession(models.Model):
+    title = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Profile(models.Model):
+    profession = models.ForeignKey(Profession, on_delete=models.CASCADE, related_name='profiles')
+    name = models.CharField(max_length=255)
+    vk_url = models.URLField(blank=True, null=True)
+    vk_id = models.CharField(max_length=255, unique=True)
+    hh_url = models.URLField(blank=True, null=True)
+    score = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name

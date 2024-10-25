@@ -1,0 +1,141 @@
+{
+  "categories": [
+    {
+      "title": "Менеджер",
+      "profiles": [
+        {
+          "name": "Алексей Кудрявцев",
+          "hh_url": "https://spb.hh.ru/resume/f8ce4674000763d6800039ed1f6632394d5658?query=%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%B5%D1%80&searchRid=1729788296496e2b160ea08a97f13e19&hhtmFrom=resume_search_catalog"
+        },
+        {
+          "name": "Мария Васильева",
+          "hh_url": "https://spb.hh.ru/resume/89151b7e0008f9964d0039ed1f714a6b387862?query=%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%B5%D1%80&searchRid=17297901399984f49b29d11e7bbb55ad&hhtmFrom=resume_search_catalog"
+
+        },
+        {
+          "name": "Игорь Соловьёв",
+          "hh_url": "https://spb.hh.ru/resume/c42e645c0004ecfc5a0039ed1f614872784a61?query=%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%B5%D1%80&searchRid=17297901399984f49b29d11e7bbb55ad&hhtmFrom=resume_search_catalog"
+        }
+      ]
+    },
+    {
+      "title": "Бэкэнд разработчик",
+      "profiles": [
+        {
+          "name": "Дмитрий Жуков",
+          "hh_url": "https://spb.hh.ru/resume/3b848aa80007f5764a0039ed1f674653587832?query=%D0%B1%D1%8D%D0%BA%D0%B5%D0%BD%D0%B4-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA&searchRid=17297904423533cf35049916a29a9eca&hhtmFrom=resume_search_catalog"
+        },
+        {
+          "name": "Екатерина Рябова",
+          "hh_url": "https://spb.hh.ru/resume/80ff8d08000327a0db0039ed1f3878476c774f?query=%D0%B1%D1%8D%D0%BA%D0%B5%D0%BD%D0%B4-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA&searchRid=17297904423533cf35049916a29a9eca&hhtmFrom=resume_search_catalog"
+        },
+        {
+          "name": "Александр Захаров",
+          "hh_url": "https://spb.hh.ru/resume/f443520e000891778c0039ed1f6a6570636f62?query=%D0%B1%D1%8D%D0%BA%D0%B5%D0%BD%D0%B4-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA&searchRid=17297904423533cf35049916a29a9eca&hhtmFrom=resume_search_catalog"
+        }
+      ]
+    },
+    {
+      "title": "Фронтэнд разработчик",
+      "profiles": [
+        {
+          "name": "Дмитрий Жуков",
+          "hh_url": "https://spb.hh.ru/resume/d361921c00063098820039ed1f453853704a78?query=%D0%A4%D1%80%D0%BE%D0%BD%D1%82%D0%B5%D0%BD%D0%B4-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA&searchRid=1729790885540f2fd4e0185f2f665791&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Ольга Лебедева",
+          "hh_url": "https://spb.hh.ru/resume/956711b600051f6b270039ed1f32536c334c63?query=%D0%A4%D1%80%D0%BE%D0%BD%D1%82%D0%B5%D0%BD%D0%B4-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA&searchRid=1729790885540f2fd4e0185f2f665791&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Павел Борисов",
+          "hh_url": "https://spb.hh.ru/resume/f9293c93000850bc8b0039ed1f3470576f7346?query=%D0%A4%D1%80%D0%BE%D0%BD%D1%82%D0%B5%D0%BD%D0%B4-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA&searchRid=1729790885540f2fd4e0185f2f665791&hhtmFrom=resume_search_result"
+        }
+      ]
+    },
+    {
+      "title": "AI эксперт",
+      "profiles": [
+        {
+          "name": "Светлана Зимина",
+          "hh_url": "https://spb.hh.ru/resume/9e0a61be00039dec930039ed1f506e6e334935?query=AI&searchRid=17297915312905f221bfa05bed310d96&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Фёдор Афанасьев",
+          "hh_url": "https://spb.hh.ru/resume/8e82c4bc0003201ff70039ed1f66484b475933?query=AI&searchRid=1729791336509298d14413f79f561867&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Владимир Коваленко",
+          "hh_url": "https://spb.hh.ru/resume/91d18b7500073db4960039ed1f485a38433037?query=AI&searchRid=1729791336509298d14413f79f561867&hhtmFrom=resume_search_result"
+        }
+      ]
+    },
+    {
+      "title": "Дизайнер",
+      "profiles": [
+        {
+          "name": "Мария Аксенова",
+          "hh_url": "https://spb.hh.ru/resume/dcc0757200077b05bb0039ed1f376f56754233?query=%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80&searchRid=1729791617950ce7f39ded5eeeb6057c&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Алиса Виноградова",
+          "hh_url": "https://spb.hh.ru/resume/e8566e4b0008cbff5c0039ed1f346e70427039?query=%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80&searchRid=1729791617950ce7f39ded5eeeb6057c&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Ксения Баранова",
+          "hh_url": "https://spb.hh.ru/resume/50dd20770004ace55e0039ed1f476f43573853?query=%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80&searchRid=1729791617950ce7f39ded5eeeb6057c&hhtmFrom=resume_search_result"
+        }
+      ]
+    },
+    {
+      "title": "Аналитик данных",
+      "profiles": [
+        {
+          "name": "Вера Давыдова",
+          "hh_url": "https://spb.hh.ru/resume/c0746c110005fbe3340039ed1f567234614258?query=%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&searchRid=1729791810757b1b31b31d11112a9ca2&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Юрий Гаврилов",
+          "hh_url": "https://spb.hh.ru/resume/7ff79e6e0003cc1d7c0039ed1f446b4c746432?query=%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&searchRid=1729791810757b1b31b31d11112a9ca2&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Иван Золотов",
+          "hh_url": "https://spb.hh.ru/resume/f21b8f550008efd59b0039ed1f7a6756386c61?query=%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&searchRid=1729791810757b1b31b31d11112a9ca2&hhtmFrom=resume_search_result"
+        }
+      ]
+    },
+    {
+      "title": "Маркетолог",
+      "profiles": [
+        {
+          "name": "Никита Новиков",
+          "hh_url": "https://spb.hh.ru/resume/c62aaeb80004d4b36c0039ed1f5a464b67524d?query=%D0%9C%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%BE%D0%BB%D0%BE%D0%B3&searchRid=17297919523901b153b4a50877ae2378&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Анна Маслова",
+          "hh_url": "https://spb.hh.ru/resume/a3dbc6880006d9785b0039ed1f4943796c7753?query=%D0%9C%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%BE%D0%BB%D0%BE%D0%B3&searchRid=17297919523901b153b4a50877ae2378&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Макар Сухов",
+          "hh_url": "https://spb.hh.ru/resume/cca7f96a00042c4e260039ed1f525468516674?query=%D0%9C%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%BE%D0%BB%D0%BE%D0%B3&searchRid=17297919523901b153b4a50877ae2378&hhtmFrom=resume_search_result"
+        }
+      ]
+    },
+    {
+      "title": "Тестировщик",
+      "profiles": [
+        {
+          "name": "Татьяна Филатова",
+          "hh_url": "https://spb.hh.ru/resume/f28b677c0004d35c5d0039ed1f675168553345?query=%D0%A2%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D1%89%D0%B8%D0%BA&searchRid=172979221134642a0c931f52dbd9f227&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Владислав Задуев",
+          "hh_url": "https://spb.hh.ru/resume/511cb42300076c03310039ed1f6d6347546a78?query=%D0%A2%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D1%89%D0%B8%D0%BA&searchRid=172979221134642a0c931f52dbd9f227&hhtmFrom=resume_search_result"
+        },
+        {
+          "name": "Николай Андреев",
+          "hh_url": "https://spb.hh.ru/resume/bf06b6cc00075c05620039ed1f4d7653743874?query=%D0%A2%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D1%89%D0%B8%D0%BA&searchRid=172979221134642a0c931f52dbd9f227&hhtmFrom=resume_search_result"
+        }
+      ]
+    }
+  ]
+}

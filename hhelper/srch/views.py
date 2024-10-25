@@ -1,20 +1,14 @@
 import asyncio
 import os
 
-from django.contrib.auth import authenticate
-from django.forms import model_to_dict
 from django.http import HttpResponse
-from django.shortcuts import render
-from rest_framework import generics, status
 from rest_framework.response import Response
 import json
 from django.http import JsonResponse
-
 from hhelper import settings
-from srch.gpt_interpreter.make_questions import MakeQuestions
-from srch.gpt_interpreter.settings import Settings
-from .models import StaffMembers, Indicators, Tasks
-from .serializers import StaffSerializer, IndicatorsSerializer, StaffLogSerializer, TaskSerializer, StaffTaskSerializer
+from .models import StaffMembers, Indicators, Tasks, Profession
+from .serializers import StaffSerializer, IndicatorsSerializer, StaffLogSerializer, TaskSerializer, StaffTaskSerializer, \
+    ResponsesProfilesSerializers
 from rest_framework.views import APIView
 
 
@@ -24,12 +18,13 @@ def index(request):
 
 class TaskCreateView(APIView):
     def post(self, request):
-        staff_id = request.data.get('staff_id')
+        staff_pk = request.data.get('staff_pk')
         description = request.data.get('description')
 
         try:
-            staff_member = StaffMembers.objects.get(id=staff_id)
-            task = Tasks.objects.create(description=description, staffmember=staff_member)
+            staff_member = StaffMembers.objects.get(id=staff_pk)
+            print(staff_member)
+            task = Tasks.objects.create(description=description, staff_member=staff_member)
             return Response(TaskSerializer(task).data)
         except StaffMembers.DoesNotExist:
             return Response({'error': 'Staff member not found'}, status=404)
@@ -37,10 +32,6 @@ class TaskCreateView(APIView):
 
 class TasksDetailView(APIView):
     def post(self, request):
-        task_id = request.data.get('task_id')
-        # подумать над тем как лучше реализовать удаление тасков
-
-    def get(self, request):
         staff_id = request.data.get('staff_id')
 
         try:
@@ -48,6 +39,16 @@ class TasksDetailView(APIView):
             return Response(StaffTaskSerializer(staff_member).data)
         except StaffMembers.DoesNotExist:
             return Response({'error': 'Staff member not found'}, status=404)
+
+
+class TaskDeleteView(APIView):
+    def post(self, request):
+        task_id = request.data.get("task_id")
+        try:
+            Tasks.objects.get(id=task_id).delete()
+            return Response({'success': True})
+        except Tasks.DoesNotExist:
+            return Response({'error': 'Task member not found'}, status=404)
 
 
 class QuestionsView(APIView):
@@ -67,6 +68,9 @@ class QuestionsView(APIView):
             "job_title": job_title
         }
 
+        # gpt_interpreter = MakeQuestions(response_data)
+        # questions = gpt_interpreter.get_response()
+        # return Response(questions)
         return Response(response_data)
 
 
@@ -112,22 +116,25 @@ class IndicatorsCreateView(APIView):
             return Response({'error': f'Ошибка при создании: {str(e)}'}, status=400)  # Улучшено сообщение об ошибке
 
 
-class ResponsesView(APIView):
+class SearchView(APIView):
     def get(self, request):
-        json_file_path = os.path.join(settings.BASE_DIR, 'srch', 'example_data', 'test_data.json')
+        json_file_path = os.path.join(settings.BASE_DIR, 'srch', 'example_data', 'search_candidate_data.json')
 
         try:
             with open(json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
-
-            for category in data.get("categories", []):
-                for profile in category.get("profiles", []):
-                    profile.pop("vk_id", None)
-                    profile.pop("score", None)
-
             return JsonResponse(data, status=200)
 
         except FileNotFoundError:
             return JsonResponse({"error": "File not found."}, status=404)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON format."}, status=400)
+
+
+class ResponsesView(APIView):
+    def get(self, request):
+        try:
+            resp_profiles = Profession.objects.all()
+            return Response(ResponsesProfilesSerializers(resp_profiles, many=True).data)
+        except Exception as ex:
+            return Response({'error': ex})

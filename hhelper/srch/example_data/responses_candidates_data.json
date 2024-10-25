@@ -8,6 +8,7 @@
           "vk_url": "https://vk.com/id123456",
           "vk_id": "123456",
           "hh_url": "https://spb.hh.ru/resume/a4236fa70004df7b550039ed1f305676477033?query=менеджер&searchRid=17296304702487d4ba5ae23a403a9021&hhtmFrom=resume_search_catalog",
+          "liked": false,
           "score": 0
         },
         {
@@ -15,6 +16,7 @@
           "vk_url": "https://vk.com/id5729562",
           "vk_id": "5729562",
           "hh_url": "https://spb.hh.ru/resume/e891f0f10001a0c28d0039ed1f754651335353?query=менеджер&searchRid=17296304702487d4ba5ae23a403a9021&hhtmFrom=resume_search_catalog",
+          "liked": false,
           "score": 0
         },
         {
@@ -22,6 +24,7 @@
           "vk_url": "https://vk.com/id147844718",
           "vk_id": "147844718",
           "hh_url": "https://spb.hh.ru/resume/94c6252200050e339d0039ed1f546459537a41?query=менеджер&searchRid=17296304702487d4ba5ae23a403a9021&hhtmFrom=resume_search_catalog",
+          "liked": false,
           "score": 0
         }
       ]
@@ -34,6 +37,7 @@
           "vk_url": "https://vk.com/id334261716",
           "vk_id": "334261716",
           "hh_url": "https://spb.hh.ru/resume/8848f1f500053ee8260039ed1f526159614b31?query=Бэкэнд+разработчик&searchRid=1729630720407f9105c5f3412c722b46&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         },
         {
@@ -41,6 +45,7 @@
           "vk_url": "https://vk.com/id89392946",
           "vk_id": "89392946",
           "hh_url": "https://spb.hh.ru/resume/593132df0009286b350039ed1f64774c474b44?query=Бэкэнд+разработчик&searchRid=172963266295231d6dd986c865c81340&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         },
         {
@@ -48,6 +53,7 @@
           "vk_url": "https://vk.com/id84771161",
           "vk_id": "84771161",
           "hh_url": "https://spb.hh.ru/resume/036045480008c25b1d0039ed1f435769376441?query=Бэкэнд+разработчик&searchRid=172963266295231d6dd986c865c81340&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         }
       ]
@@ -60,6 +66,7 @@
           "vk_url": "https://vk.com/id475921200",
           "vk_id": "475921200",
           "hh_url": "https://spb.hh.ru/resume/730ba0d900086376080039ed1f4e4f42345151?query=Фронтэнд+разработчик&searchRid=172963298854309139968fc3c3a558b4&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         },
         {
@@ -67,6 +74,7 @@
           "vk_url": "https://vk.com/id358589101",
           "vk_id": "358589101",
           "hh_url": "https://spb.hh.ru/resume/8ca532980008eb0ee20039ed1f694153787758?query=Фронтэнд+разработчик&searchRid=172963298854309139968fc3c3a558b4&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         },
         {
@@ -74,6 +82,7 @@
           "vk_url": "https://vk.com/id112233",
           "vk_id": "112233",
           "hh_url": "https://spb.hh.ru/resume/8810972f000894c6930039ed1f6f6c4344484e?query=Фронтэнд+разработчик&searchRid=172963298854309139968fc3c3a558b4&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         }
       ]
@@ -86,6 +95,7 @@
           "vk_url": "https://vk.com/id556677",
           "vk_id": "556677",
           "hh_url": "https://spb.hh.ru/resume/a98e559200051066460039ed1f674a615a464b?query=Ии+специалист&searchRid=1729633373346aa9c66044cb8101937a&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         },
         {
@@ -93,6 +103,7 @@
           "vk_url": "https://vk.com/id11223",
           "vk_id": "11223",
           "hh_url": "https://spb.hh.ru/resume/11570c9b00077b1dd40039ed1f646f3767576c?query=Ии+специалист&searchRid=1729633373346aa9c66044cb8101937a&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         },
         {
@@ -100,6 +111,7 @@
           "vk_url": "https://vk.com/id334455",
           "vk_id": "334455",
           "hh_url": "https://spb.hh.ru/resume/4cc6e5ff000408d2d90039ed1f43366f374164?query=Ии+специалист&searchRid=1729633373346aa9c66044cb8101937a&hhtmFrom=resume_search_result",
+          "liked": false,
           "score": 0
         }
       ]

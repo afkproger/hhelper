@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/hh_helper.iml" filepath="$PROJECT_DIR$/.idea/hh_helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hhelper.iml" filepath="$PROJECT_DIR$/.idea/hhelper.iml" />
     </modules>
   </component>
 </project>

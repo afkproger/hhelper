@@ -1,28 +1,29 @@
+
 {
   "categories": [
     {
       "title": "Менеджер",
       "profiles": [
         {
-          "name": "Иван Иванов",
-          "vk_url": "https://vk.com/id123456",
-          "vk_id": "123456",
+          "name": "Марина Шаповаленко",
+          "vk_url": "https://vk.com/mary_grace",
+          "vk_id": "13971996",
           "hh_url": "https://spb.hh.ru/resume/a4236fa70004df7b550039ed1f305676477033?query=менеджер&searchRid=17296304702487d4ba5ae23a403a9021&hhtmFrom=resume_search_catalog",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Анна Смирнова",
-          "vk_url": "https://vk.com/id5729562",
-          "vk_id": "5729562",
+          "name": "Руслан Муратов",
+          "vk_url": "https://vk.com/pepugyobana",
+          "vk_id": "153338089",
           "hh_url": "https://spb.hh.ru/resume/e891f0f10001a0c28d0039ed1f754651335353?query=менеджер&searchRid=17296304702487d4ba5ae23a403a9021&hhtmFrom=resume_search_catalog",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Павел Лебедев",
-          "vk_url": "https://vk.com/id147844718",
-          "vk_id": "147844718",
+          "name": "Ян Козырев",
+          "vk_url": "https://vk.com/kozyreva96",
+          "vk_id": "35762393",
           "hh_url": "https://spb.hh.ru/resume/94c6252200050e339d0039ed1f546459537a41?query=менеджер&searchRid=17296304702487d4ba5ae23a403a9021&hhtmFrom=resume_search_catalog",
           "liked": false,
           "score": 0
@@ -33,25 +34,25 @@
       "title": "Бэкэнд разработчик",
       "profiles": [
         {
-          "name": "Дмитрий Кузнецов",
-          "vk_url": "https://vk.com/id334261716",
-          "vk_id": "334261716",
+          "name": "Александр Алексеев",
+          "vk_url": "https://vk.com/a_l_e_k_s_e__e_v",
+          "vk_id": "266991501",
           "hh_url": "https://spb.hh.ru/resume/8848f1f500053ee8260039ed1f526159614b31?query=Бэкэнд+разработчик&searchRid=1729630720407f9105c5f3412c722b46&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Ольга Попова",
-          "vk_url": "https://vk.com/id89392946",
-          "vk_id": "89392946",
+          "name": "Даниил Семиш",
+          "vk_url": "https://vk.com/dell_seed",
+          "vk_id": "494820314",
           "hh_url": "https://spb.hh.ru/resume/593132df0009286b350039ed1f64774c474b44?query=Бэкэнд+разработчик&searchRid=172963266295231d6dd986c865c81340&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Александр Захаров",
-          "vk_url": "https://vk.com/id84771161",
-          "vk_id": "84771161",
+          "name": "Антон Рожков",
+          "vk_url": "https://vk.com/id84771168",
+          "vk_id": "84771168",
           "hh_url": "https://spb.hh.ru/resume/036045480008c25b1d0039ed1f435769376441?query=Бэкэнд+разработчик&searchRid=172963266295231d6dd986c865c81340&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
@@ -62,25 +63,25 @@
       "title": "Фронтэнд разработчик",
       "profiles": [
         {
-          "name": "Алексей Петров",
-          "vk_url": "https://vk.com/id475921200",
-          "vk_id": "475921200",
+          "name": "Ирина Анисимова",
+          "vk_url": "https://vk.com/id7684254",
+          "vk_id": "7684254",
           "hh_url": "https://spb.hh.ru/resume/730ba0d900086376080039ed1f4e4f42345151?query=Фронтэнд+разработчик&searchRid=172963298854309139968fc3c3a558b4&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Мария Ковалева",
-          "vk_url": "https://vk.com/id358589101",
-          "vk_id": "358589101",
+          "name": "Наталья Иванова",
+          "vk_url": "https://vk.com/id358589102",
+          "vk_id": "358589102",
           "hh_url": "https://spb.hh.ru/resume/8ca532980008eb0ee20039ed1f694153787758?query=Фронтэнд+разработчик&searchRid=172963298854309139968fc3c3a558b4&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Владимир Смирнов",
-          "vk_url": "https://vk.com/id112233",
-          "vk_id": "112233",
+          "name": "Семен Калыбин",
+          "vk_url": "https://vk.com/id358589123",
+          "vk_id": "358589123",
           "hh_url": "https://spb.hh.ru/resume/8810972f000894c6930039ed1f6f6c4344484e?query=Фронтэнд+разработчик&searchRid=172963298854309139968fc3c3a558b4&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
@@ -99,17 +100,17 @@
           "score": 0
         },
         {
-          "name": "Светлана Орлова",
-          "vk_url": "https://vk.com/id11223",
-          "vk_id": "11223",
+          "name": "Сергей Сергей",
+          "vk_url": "https://vk.com/id45",
+          "vk_id": "45",
           "hh_url": "https://spb.hh.ru/resume/11570c9b00077b1dd40039ed1f646f3767576c?query=Ии+специалист&searchRid=1729633373346aa9c66044cb8101937a&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
         },
         {
-          "name": "Константин Миронов",
-          "vk_url": "https://vk.com/id334455",
-          "vk_id": "334455",
+          "name": "Роман Кирилов",
+          "vk_url": "https://vk.com/id1092",
+          "vk_id": "1092",
           "hh_url": "https://spb.hh.ru/resume/4cc6e5ff000408d2d90039ed1f43366f374164?query=Ии+специалист&searchRid=1729633373346aa9c66044cb8101937a&hhtmFrom=resume_search_result",
           "liked": false,
           "score": 0
@@ -127,9 +128,9 @@
           "score": 0
         },
         {
-          "name": "Олег Сергеев",
-          "vk_url": "https://vk.com/id667988",
-          "vk_id": "667988",
+          "name": "Евгения Гаврилова",
+          "vk_url": "https://vk.com/id66999",
+          "vk_id": "66999",
           "hh_url": "https://spb.hh.ru/resume/fb4b1eed0001af37b40039ed1f67594f785a51?query=Дизайнер&searchRid=17296335548683683d815729fa9be4ac&hhtmFrom=resume_search_result",
           "score": 0
         },
@@ -146,16 +147,16 @@
       "title": "Аналитик данных",
       "profiles": [
         {
-          "name": "Никита Захаров",
-          "vk_url": "https://vk.com/id99187",
-          "vk_id": "99187",
+          "name": "Николай Придачин",
+          "vk_url": "https://vk.com/id25089",
+          "vk_id": "25089",
           "hh_url": "https://spb.hh.ru/resume/98e06205000224f04d0039ed1f413571376b77?query=Аналит+данных&searchRid=172963426056311715520d6cd4362d21&hhtmFrom=resume_search_result",
           "score": 0
         },
         {
-          "name": "Татьяна Сидорова",
-          "vk_url": "https://vk.com/id33949",
-          "vk_id": "33949",
+          "name": "Оля Олина",
+          "vk_url": "https://vk.com/id331327158",
+          "vk_id": "331327158",
           "hh_url": "https://spb.hh.ru/resume/12e114ff00092e6ae70039ed1f646e556a7656?query=аналитик+данных&searchRid=1729634391586674c4657c77c8d2ad0e&hhtmFrom=resume_search_catalog",
           "score": 0
         },
@@ -172,23 +173,23 @@
       "title": "Маркетолог",
       "profiles": [
         {
-          "name": "Олеся Васильева",
-          "vk_url": "https://vk.com/id671150128",
-          "vk_id": "671150128",
+          "name": "Даня Селиванов",
+          "vk_url": "https://vk.com/id671150129",
+          "vk_id": "671150129",
           "hh_url": "https://spb.hh.ru/resume/c62aaeb80004d4b36c0039ed1f5a464b67524d?query=Маркетолог&searchRid=1729634571466faeb45d538da347d70e&hhtmFrom=resume_search_result",
           "score": 0
         },
         {
-          "name": "Сергей Лазарев",
-          "vk_url": "https://vk.com/id22344",
-          "vk_id": "22344",
+          "name": "Алмас Утешев",
+          "vk_url": "https://vk.com/id22345556",
+          "vk_id": "22345556",
           "hh_url": "https://spb.hh.ru/resume/68a3109f00037b97c80039ed1f486958526532?query=Маркетолог&searchRid=1729634571466faeb45d538da347d70e&hhtmFrom=resume_search_result",
           "score": 0
         },
         {
-          "name": "Екатерина Романова",
-          "vk_url": "https://vk.com/id99810",
-          "vk_id": "99810",
+          "name": "Виктор Попов",
+          "vk_url": "https://vk.com/id9131021",
+          "vk_id": "9131021",
           "hh_url": "https://spb.hh.ru/resume/a9b45a8400020a1d140039ed1f62765459416b?query=Маркетолог&searchRid=1729634571466faeb45d538da347d70e&hhtmFrom=resume_search_result",
           "score": 0
         }
@@ -198,23 +199,23 @@
       "title": "Тестировщик",
       "profiles": [
         {
-          "name": "Михаил Егоров",
-          "vk_url": "https://vk.com/id337680438",
-          "vk_id": "337680438",
+          "name": "Егор Чирикин",
+          "vk_url": "https://vk.com/chirikin",
+          "vk_id": "2199",
           "hh_url": "https://spb.hh.ru/resume/81a28b9500030347ad0039ed1f597354565552?query=Тестировщик&searchRid=172963471029328f78fcfadba70d65f7&hhtmFrom=resume_search_result",
           "score": 0
         },
         {
-          "name": "Василиса Котова",
-          "vk_url": "https://vk.com/id53124448",
-          "vk_id": "53124448",
+          "name": "Артём Ноздря",
+          "vk_url": "https://vk.com/temka2115",
+          "vk_id": "523821184",
           "hh_url": "https://spb.hh.ru/resume/fdef7478000337cc920039ed1f653530634a79?query=Тестировщик&searchRid=172963471029328f78fcfadba70d65f7&hhtmFrom=resume_search_result",
           "score": 0
         },
         {
-          "name": "Станислав Боровик",
-          "vk_url": "https://vk.com/id372543",
-          "vk_id": "372543",
+          "name": "Юлия Буланцова",
+          "vk_url": "https://vk.com/id13383601",
+          "vk_id": "13383601",
           "hh_url": "https://spb.hh.ru/resume/06018b0000079555130039ed1f596173704a42?query=Тестировщик&searchRid=172963471029328f78fcfadba70d65f7&hhtmFrom=resume_search_result",
           "score": 0
         }

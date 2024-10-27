@@ -1,4 +1,6 @@
-from typing import Dict, Any, Union, List, TypedDict
+import json
+import random
+from typing import Union, TypedDict
 
 import asyncio
 from typing import Dict, Any
@@ -9,17 +11,114 @@ from typing import List, Optional
 import os
 from typing import Optional
 
+import vk
+
+
+class Parsing:
+
+    def __init__(self, user_id):
+        TOKEN = "f99e6956f99e6956f99e6956ccfabead59ff99ef99e69569e93e1709c9c876af276a32e"
+        VERSION = "5.199"
+        self.connection = vk.API(TOKEN, v=VERSION)
+        self.user_id = user_id
+        self.FIELDS = "about, activities, bdate, books, can_see_audio, can_write_private_message, career, city, connections, contacts, counters, country, domain, education, exports, followers_count, has_mobile, has_photo, home_town, interests, is_no_index, last_seen, military, nickname, occupation, online, personal, photo_200, quotes, relatives, relation, schools, sex, site, status, universities, verified"
+        self.__wall = None
+
+    def parse_user_wall(self):
+        self.__wall = self.connection.wall.get(owner_id=self.user_id, filter=all, count=100, extended=1,
+                                               fields=self.FIELDS)
+
+    def extract_names_and_cities(self, data, key):
+        return {
+            (
+                item["name"],
+                self.get_city_name(item["city"]) if "city" in item else "N/A"
+            )
+            for item in data if "name" in item
+        }
+
+    def get_city_name(self, city_id):
+        try:
+            city_info = self.connection.database.getCitiesById(city_ids=city_id)
+            if city_info and isinstance(city_info, list) and len(city_info) > 0:
+                return city_info[0].get("title", f"Unknown city {city_id}")
+            return f"Unknown city {city_id}"
+        except Exception as e:
+            return f"Error fetching city {city_id}: {e}"
+
+    def get_group_name(self, group_id):
+        try:
+            group_info = self.connection.groups.getById(group_id=group_id)
+            if group_info and isinstance(group_info['groups'], list) and len(group_info) > 0:
+                return group_info['groups'][0]["name"]
+            return f"Unknown group {group_id}"
+        except Exception as e:
+            return f"Error fetching group {group_id}: {e}"
+
+    def parse_user_info(self):
+        # Получение информации о пользователе с нужными полями
+        user_info = self.connection.users.get(user_id=self.user_id, fields="schools,universities,education,career")
+
+        # Если данные о пользователе получены, форматируем их
+        if user_info:
+            user_info = user_info[0]  # Если вернулся список, берем первый элемент
+
+            # Форматируем поля для университетов и школ
+            formatted_data = {
+                "career": {
+                    (
+                        career_item.get("position", ""),
+                        self.get_group_name(career_item["group_id"]) if "group_id" in career_item else "N/A",
+                        self.get_city_name(career_item["city_id"]) if "city_id" in career_item else "N/A"
+                    )
+                    for career_item in user_info.get("career", [])
+                },
+                "universities": self.extract_names_and_cities(user_info.get("universities", []), "universities"),
+                "schools": self.extract_names_and_cities(user_info.get("schools", []), "schools")
+            }
+
+            return formatted_data
+
+        return {}
+
+    def parse_subscriptions(self):
+        try:
+            subscriptions_info = self.connection.users.getSubscriptions(user_id=self.user_id, extended=1, count=100)
+            # Извлечение названий подписок
+            formatted_subscriptions = {
+                item["name"]
+                for item in subscriptions_info.get("items", [])
+            }
+            return formatted_subscriptions
+        except Exception as e:
+            return f"Error fetching subscriptions: {e}"
+
+    def parse_user_posts(self):
+        self.parse_user_wall()
+        try:
+            posts = {
+                item["text"]
+                for item in self.__wall['items'] if len(item['text']) != 0
+            }
+
+            return posts
+        except Exception as e:
+            return f"Error fetching posts: {e}"
+
+
 available_models: List[str] = [
-        "yandexgpt",
-        "yandexgpt-lite",
-        "summarization"
-    ]
+    "yandexgpt",
+    "yandexgpt-lite",
+    "summarization"
+]
+
 
 class YandexGPTConfigManagerBase:
     """
     Base class for YaGPT configuration management. It handles configurations related to model type, catalog ID, IAM
     token, and API key for authorization when making requests to the completion endpoint.
     """
+
     def __init__(
             self,
             model_type: Optional[str] = None,
@@ -118,6 +217,7 @@ class YandexGPTConfigManagerBase:
         else:
             raise ValueError("Model type or catalog ID is not set")
 
+
 class YandexGPTConfigManagerForAPIKey(YandexGPTConfigManagerBase):
     """
     Class for configuring the YandexGPT model using an API key. It supports setting model type, catalog ID, and API key
@@ -125,6 +225,7 @@ class YandexGPTConfigManagerForAPIKey(YandexGPTConfigManagerBase):
     use environmental variables for model type (`YANDEX_GPT_MODEL_TYPE`), catalog ID (`YANDEX_GPT_CATALOG_ID`), and API
     key (`YANDEX_GPT_API_KEY`), which can override the constructor values if set.
     """
+
     def __init__(
             self,
             model_type: Optional[str] = None,
@@ -185,11 +286,11 @@ class YandexGPTConfigManagerForAPIKey(YandexGPTConfigManagerBase):
             )
 
 
-
 class YandexGPTBase:
     """
     This class is used to interact with the Yandex GPT API, providing asynchronous and synchronous methods to send requests and poll for their completion.
     """
+
     @staticmethod
     async def send_async_completion_request(
             headers: Dict[str, str],
@@ -300,7 +401,6 @@ class YandexGPTBase:
             return response.json()
         else:
             raise Exception(f"Failed to send sync request, status code: {response.status_code}")
-
 
 
 class YandexGPTMessage(TypedDict):
@@ -517,6 +617,7 @@ class YandexGPTThread(YandexGPT):
 
     This class manages asynchronous messaging and maintains the state of conversation threads.
     """
+
     def __init__(
             self,
             config_manager: Union[YandexGPTConfigManagerBase, Dict[str, Any]],
@@ -685,39 +786,88 @@ class YandexGPTThread(YandexGPT):
                 self.status["status"] = "idle"
 
 
-class MakeQuestions:
+class PersonAnalysis:
+    def __init__(self, user_info, subscriptions, posts, data):
+        """Инициализация класса анализа специалиста с подготовкой входных данных."""
 
-    def __init__(self, data):
         MODEL_NAME = "yandexgpt"
         CATALOG_ID = "b1ggortl5q1ss3iehd1c"
         API_KEY = "AQVNwIbx4Px8Rx5dwZE7l3PXAtpapTO_qIp9p56-"
 
         # Инициализируем конфиг для GPT и создаём YandexGPTThread
-        self.config_manager = YandexGPTConfigManagerForAPIKey(model_type=MODEL_NAME, catalog_id=CATALOG_ID,
-                                                              api_key=API_KEY)
+        self.config_manager = YandexGPTConfigManagerForAPIKey(
+            model_type=MODEL_NAME, catalog_id=CATALOG_ID, api_key=API_KEY
+        )
+
+        # Прямое присвоение множеств
+        self.user_info = user_info
+        self.subscriptions = subscriptions
+        self.posts = posts
         self.data = data
-        self.prepare_data()
 
-    def prepare_data(self):
-        self.indicators = []
+        self.indicators = self._prepare_indicators()
+        self.career = self._extract_career(self.user_info)
+        self.universities = self._extract_universities(self.user_info)
+        self.schools = self._extract_schools(self.user_info)
 
-        for indicator in self.data['indicators']:
-            self.indicators.append(indicator)
-        self.job_title = self.data['job_title']
+    def _prepare_indicators(self):
+        """Извлекает индикаторы и название должности из входных данных."""
+        indicators = self.data.get("indicators", [])
+        return indicators
 
-        return self.indicators, self.job_title
+    def _extract_career(self, user_info: set) -> set:
+        """Извлекает информацию о карьере пользователя."""
+        return {item['group'] for item in user_info if 'group' in item}
 
-    def prepare_gpt_messages(self):
+    def _extract_universities(self, user_info: set) -> set:
+        """Извлекает информацию об университетах пользователя."""
+        return {item['name'] for item in user_info if
+                'name' in item and 'type' in item and item['type'] == 'university'}
+
+    def _extract_schools(self, user_info: set) -> set:
+        """Извлекает информацию о школах пользователя."""
+        return {f"{item['name']} ({item.get('city', '')})" for item in user_info if
+                'name' in item and 'type' in item and item['type'] == 'school'}
+
+    def _prepare_gpt_messages(self) -> list:
+        """Формирует сообщения для запроса к YandexGPT с учетом всех показателей и данных пользователя."""
+
+        indicators_text = "; ".join(
+            [f"{indicator}: оцени (1.0 — высокий, -1.0 — низкий)" for
+             indicator in self.indicators]
+        )
+
+        subscriptions_text = ", ".join(self.subscriptions) if self.subscriptions else "Отсутствуют"
+        posts_text = "; ".join(self.posts) if self.posts else "Отсутствуют"
+        career_text = ", ".join(self.career) if self.career else "Отсутствует"
+        universities_text = ", ".join(self.universities) if self.universities else "Отсутствуют"
+        schools_text = ", ".join(self.schools) if self.schools else "Отсутствуют"
+
         user_input = (
-            f"У нас есть ряд показателей, которые важны для должности {self.job_title}: {', '.join(self.indicators)}.\n"
-            "Сформируй список вопросов, которые можно задать специалисту на собеседовании для оценки каждого показателя.\n"
-            "Ответ должен быть строкой, где вопросы идут через запятую. Всего 3 вопроса."
+            f"У нас есть несколько показателей, каждый из которых важен для оценки кандидата.\n"
+            f"{indicators_text}. Пожалуйста, оцени каждый показатель кандидата, опираясь на представленные данные. "
+            "Данные включают подписки, посты, карьерный путь, а также информацию об университетах и школах, указанные ниже.\n\n"
+            f"Подписки специалиста: {subscriptions_text}.\n"
+            f"Последние посты специалиста: {posts_text}.\n"
+            f"Карьера специалиста: {career_text}.\n"
+            f"Университеты, в которых обучался специалист: {universities_text}.\n"
+            f"Школы, в которых обучался специалист: {schools_text}.\n\n"
+            "Твоя задача — присвоить оценку каждому показателю в диапазоне от -1.0 до 1.0, где:\n"
+            "- значения около 1.0 отражают высокий уровень, соответствующий показателю;\n"
+            "- значения около -1.0 — низкий уровень;\n"
+            "Оцени каждый показатель на основе предоставленных данных, не делай предположений на основе информации, отсутствующей в запросе. "
+            "Ответ должен быть строго в формате JSON и включать только оценки для каждого показателя, без пояснений, дополнительных данных "
+            "или комментариев. Ответ должен строго соответствовать следующему формату:\n"
+            "{\n  \"показатель_1\": 0.265,\n  \"показатель_2\": 0.809,\n  \"показатель_3\": -0.733,\n  ...\n}"
+            "\nСохрани порядок перечисленных показателей и избегай отклонений от заданного формата."
         )
 
         system_message = (
-            "Вы — AI-ассистент, который помогает составить вопросы для собеседования. "
-            "На основе указанных показателей и должности, сформируйте список вопросов. "
-            "Ответ должен быть только строкой, где вопросы перечислены через запятую."
+            "Вы — AI-ассистент, который помогает оценивать специалистов на основе их подписок, постов, образования, "
+            "и карьерного опыта. Каждому показателю поставьте оценку в диапазоне от -1.0 до 1.0, где:\n"
+            "- значения около 1.0 указывают на высокий уровень соответствия показателю;\n"
+            "- значения около -1.0 — на низкий уровень;\n"
+            "Ответ должен быть строго в формате JSON, не добавляйте комментарии, пояснения или что-либо лишнее."
         )
 
         messages = [
@@ -726,16 +876,19 @@ class MakeQuestions:
         ]
         return messages
 
-    def get_response(self):
-        messages = self.prepare_gpt_messages()
-
-        yandex_gpt_thread = YandexGPTThread(config_manager=self.config_manager, messages=messages)
-
-        yandex_gpt_thread.run_sync()
-
-        response_data = yandex_gpt_thread[-1]['text']
-
-        return response_data
-
-
-
+    def get_response(self) -> Dict:
+        flag = 1
+        while (flag == 1):
+            try:
+                messages = self._prepare_gpt_messages()
+                yandex_gpt_thread = YandexGPTThread(config_manager=self.config_manager, messages=messages)
+                yandex_gpt_thread.run_sync()
+                response_data = yandex_gpt_thread[-1]['text']
+                marks = eval(response_data)
+                response = [float(marks[indicator.lower()]) for indicator in self.indicators]
+                for i in range(3):
+                    if response[i] == 0.0: response[i] += random.random() * (1 + 1) - 1
+                flag = 0
+                return response
+            except Exception as e:
+                flag = 1

@@ -14,7 +14,6 @@ class StaffMembers(models.Model):
     email = models.EmailField(unique=True)
     login = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=128)
-    indicators = models.ManyToManyField(Indicators, blank=True)
 
     def __str__(self):
         return self.full_name
@@ -31,6 +30,7 @@ class Tasks(models.Model):
 
 
 class Profession(models.Model):
+    indicators = models.ManyToManyField(Indicators, blank=True)
     title = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
@@ -43,7 +43,27 @@ class Profile(models.Model):
     vk_url = models.URLField(blank=True, null=True)
     vk_id = models.CharField(max_length=255, unique=True)
     hh_url = models.URLField(blank=True, null=True)
-    score = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+
+class StaffProfilesScores(models.Model):
+    staff_member = models.ForeignKey(StaffMembers, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('staff_member', 'profile', 'score')
+
+
+class StaffProfessionIndicators(models.Model):
+    staff_member = models.ForeignKey(StaffMembers, on_delete=models.CASCADE)
+    profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
+    indicator = models.ForeignKey(Indicators, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('staff_member', 'profession', 'indicator')
+
+    def __str__(self):
+        return f"{self.staff_member.full_name} - {self.profession.title} - {self.indicator.name}"

@@ -41,7 +41,7 @@ class IndicatorsSerializer(serializers.ModelSerializer):
 class ProfileSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('id', 'name', 'vk_url', 'vk_id', 'hh_url', 'score')
+        fields = ('id', 'name', 'vk_url', 'vk_id', 'hh_url')
 
 
 class ResponsesProfilesSerializers(serializers.ModelSerializer):
@@ -49,4 +49,5 @@ class ResponsesProfilesSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Profession
-        fields = ('title', 'profiles')
+        fields = ('id', 'title', 'profiles')
+

@@ -1,3 +1,4 @@
+
 import os
 import json
 from django.conf import settings
@@ -16,9 +17,6 @@ def load_data():
                     name=profile_data['name'],
                     vk_url=profile_data.get('vk_url', ''),  # Установка пустой строки по умолчанию
                     vk_id=profile_data['vk_id'],
-                    hh_url=profile_data.get('hh_url', ''),  # Установка пустой строки по умолчанию
-                    score=profile_data.get('score', 0)  # Установка 0 по умолчанию
+                    hh_url=profile_data.get('hh_url', '')  # Установка пустой строки по умолчанию
                 )
 #python manage.py shell и вот так грузим
-
-

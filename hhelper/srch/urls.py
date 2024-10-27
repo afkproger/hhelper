@@ -11,6 +11,10 @@ urlpatterns = [
     path('hhelper/createtask/', views.TaskCreateView.as_view(), name='create_tasks'),
     path('hhelper/deletetask/', views.TaskDeleteView.as_view(), name='delete_task'),
     path('hhelper/showresponses/', views.ResponsesView.as_view(), name='responses_profile'),
+    path('hhelper/professionindicators/', views.ProfessionIndicatorsSetupView.as_view(),
+         name='setup_indicators_for_professions'),
     path('hhelper/searchprofiles/', views.SearchView.as_view()),
-    path('hhelper/makequestions/', views.QuestionsView.as_view())
+    path('hhelper/calculationscores/' , views.CalculationScoreView.as_view()),
+    path('hhelper/makequestions/', views.QuestionsView.as_view()) ,
+    path('hhelper/profilesscores/' , views.ProfessionProfileScoresView.as_view())
 ]

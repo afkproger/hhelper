@@ -1,15 +1,19 @@
 import asyncio
 import os
-
+import random
 from django.http import HttpResponse
+from django.template.defaultfilters import title
 from rest_framework.response import Response
 import json
 from django.http import JsonResponse
 from hhelper import settings
-from .models import StaffMembers, Indicators, Tasks, Profession
+from .gpt_interpreter.make_questions import MakeQuestions
+from .models import StaffMembers, Indicators, Tasks, Profession, StaffProfessionIndicators, Profile, StaffProfilesScores
 from .serializers import StaffSerializer, IndicatorsSerializer, StaffLogSerializer, TaskSerializer, StaffTaskSerializer, \
     ResponsesProfilesSerializers
 from rest_framework.views import APIView
+from srch.gpt_interpreter.vk_parse import Parsing, PersonAnalysis
+from .calculate.effectivenesscalculator import Score
 
 
 def index(request):
@@ -53,25 +57,35 @@ class TaskDeleteView(APIView):
 
 class QuestionsView(APIView):
     def post(self, request):
-        job_title = request.data.get('job_title')
-        indicator_ids = request.data.get('indicators', [])
+        profession_id = request.data.get('profession_id')
+        staff_member_id = request.data.get('staff_id')  # или получите ID из данных запроса, если это необходимо
+        try:
+            # Получаем профессию по profession_id
+            profession = Profession.objects.get(id=profession_id)
 
-        # Получаем показатели по переданным id
-        indicators = Indicators.objects.filter(id__in=indicator_ids)
+            # Извлекаем связанные индикаторы для конкретного сотрудника и профессии
+            indicators = StaffProfessionIndicators.objects.filter(
+                staff_member_id=staff_member_id,
+                profession=profession
+            ).select_related('indicator')
 
-        # Извлекаем названия показателей
-        indicator_names = [indicator.name for indicator in indicators]
+            # Извлекаем названия показателей
+            indicator_names = [indicator.indicator.name for indicator in indicators]
 
-        # Формируем ответ в нужном формате
-        response_data = {
-            "indicators": indicator_names,
-            "job_title": job_title
-        }
+            # Формируем ответ в нужном формате
+            response_data = {
+                "indicators": indicator_names,
+                "job_title": profession.title
+            }
 
-        # gpt_interpreter = MakeQuestions(response_data)
-        # questions = gpt_interpreter.get_response()
-        # return Response(questions)
-        return Response(response_data)
+            # return Response(response_data)
+
+            gpt_interpreter = MakeQuestions(response_data)
+            questions = gpt_interpreter.get_response()
+            return Response({'questions': questions})
+
+        except Profession.DoesNotExist:
+            return Response({"error": "Profession not found."}, status=404)
 
 
 class StaffRegistrationView(APIView):
@@ -132,9 +146,147 @@ class SearchView(APIView):
 
 
 class ResponsesView(APIView):
-    def get(self, request):
+    def post(self, request):
+        profession_title = request.data.get('profession_title')
         try:
-            resp_profiles = Profession.objects.all()
+            resp_profiles = Profession.objects.filter(title=profession_title)
+            print(resp_profiles)
             return Response(ResponsesProfilesSerializers(resp_profiles, many=True).data)
         except Exception as ex:
             return Response({'error': ex})
+
+
+class ProfessionIndicatorsSetupView(APIView):
+    def post(self, request):
+        staff_member_id = request.data.get('staff_id')
+        profession_id = request.data.get('profession_id')
+        indicator_ids = request.data.get('indicators', [])
+
+        try:
+            profession = Profession.objects.get(id=profession_id)
+            indicators = Indicators.objects.filter(id__in=indicator_ids)
+
+            # Удаляем все старые записи для данного сотрудника и профессии
+            StaffProfessionIndicators.objects.filter(staff_member_id=staff_member_id,
+                                                     profession=profession).delete()
+
+            # Создаем новые записи в промежуточной таблице
+            for indicator in indicators:
+                StaffProfessionIndicators.objects.create(
+                    staff_member_id=staff_member_id,
+                    profession=profession,
+                    indicator=indicator
+                )
+
+            return Response({"message": "Indicators successfully added to the profession."}, status=200)
+
+        except Profession.DoesNotExist:
+            return Response({"error": "Profession not found."}, status=404)
+
+        except Indicators.DoesNotExist:
+            return Response({"error": "Some indicators were not found."}, status=404)
+
+
+class CalculationScoreView(APIView):
+    def post(self, request):
+        staff_id = request.data.get('staff_id')
+        profession_id = request.data.get('profession_id')
+        try:
+            # Получаем профессию по profession_id
+            profession = Profession.objects.get(id=profession_id)
+
+            # Извлекаем связанные индикаторы для конкретного сотрудника и профессии
+            indicators = StaffProfessionIndicators.objects.filter(
+                staff_member_id=staff_id,
+                profession=profession
+            ).select_related('indicator')
+
+            profiles_data = Profile.objects.filter(profession=profession).values_list('id', 'vk_id')
+            # Преобразуем в словарь с ключами vk_id и значениями id
+            profiles_dict = {vk_id: profile_id for profile_id, vk_id in profiles_data}
+            indicator_names = [indicator.indicator.name for indicator in indicators]
+
+            indicators_data = {
+                "indicators": indicator_names
+            }
+            response_data = {
+                "created_scores": []
+            }
+
+            for vk_id in profiles_dict.keys():
+                parser = Parsing(int(vk_id))
+                indicators_value = PersonAnalysis(user_info=parser.parse_user_info(),
+                                                  subscriptions=parser.parse_subscriptions(),
+                                                  posts=parser.parse_user_posts(), data=indicators_data)
+                # indicators_value = [random.uniform(-1, 1) for _ in range(3)]
+                score = int((1 / Score.get_score(indicators_value.get_response())) * 100)
+                profile_id = profiles_dict.get(vk_id)
+
+                # Проверка наличия profile_id перед созданием записи
+                if profile_id is not None:
+                    created_score = StaffProfilesScores.objects.create(
+                        staff_member_id=staff_id,
+                        profile_id=profile_id,
+                        score=score
+                    )
+                    # Добавляем данные созданной записи в response_data
+                    response_data["created_scores"].append({
+                        "staff_member_id": created_score.staff_member_id,
+                        "profile_id": created_score.profile_id,
+                        "score": created_score.score
+                    })
+                else:
+                    response_data["created_scores"].append({
+                        "error": f"Profile not found for vk_id {vk_id}"
+                    })
+
+            return Response(response_data)
+        except Profession.DoesNotExist:
+            return Response({"error": "Profession not found."}, status=404)
+
+
+class ProfessionProfileScoresView(APIView):
+    def post(self, request):
+        staff_id = request.data.get('staff_id')
+        profession_id = request.data.get('profession_id')
+
+        # Проверяем, что идентификаторы переданы
+        if not staff_id or not profession_id:
+            return JsonResponse({"error": "Missing staff_id or profession_id."}, status=400)
+
+        try:
+            # Получаем профессию и проверяем, что она существует
+            profession = Profession.objects.get(id=profession_id)
+
+            # Получаем профили, связанные с профессией
+            profiles = Profile.objects.filter(profession=profession).prefetch_related('staffprofilesscores_set')
+
+            response_data = {
+                "profession": {
+                    "id": profession.id,
+                    "title": profession.title,
+                },
+                "profiles": []
+            }
+
+            # Для каждого профиля получаем его данные и score
+            for profile in profiles:
+                # Получаем score для конкретного сотрудника и профиля
+                score_entry = StaffProfilesScores.objects.filter(
+                    staff_member_id=staff_id,
+                    profile=profile
+                ).first()
+
+                profile_data = {
+                    "profile_id": profile.id,
+                    "profile_name": profile.name,
+                    "vk_url": profile.vk_url,
+                    "hh_url": profile.hh_url,
+                    "score": int(score_entry.score) if score_entry else None  # Отбрасываем значения после точки
+                }
+                response_data["profiles"].append(profile_data)
+
+            return JsonResponse(response_data)
+
+        except Profession.DoesNotExist:
+            return JsonResponse({"error": "Profession not found."}, status=404)

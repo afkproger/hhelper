@@ -17,6 +17,6 @@
 }
 9. Сохранить изменения
 10. Переход в рабочую директорию
-11. Переход в рабочую консоль (python manage.py.shell), (из example_data запустить load_data)
+11. Переход в рабочую консоль (python manage.py shell), (из example_data запустить load_data)
 12. Установка миграций (python manage.py makemigrations), (python manage.py migrate)
 13. Запуск сервера (python manage.py runserver)
